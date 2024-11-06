@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedra, Papel e Tesoura</title>
+    <style>
+        .choice {
+            width: 100px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo Pedra, Papel e Tesoura</h1>
+    <div id="choices">
+        <img src="pedra.png" alt="Pedra" class="choice" id="pedra">
+        <img src="papel.png" alt="Papel" class="choice" id="papel">
+        <img src="tesoura.png" alt="Tesoura" class="choice" id="tesoura">
+    </div>
+    <div id="result"></div>
+
+    <script>
+        const choices = ["pedra", "papel", "tesoura"];
+        const resultDiv = document.getElementById("result");
+
+        function getComputerChoice() {
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        function determineWinner(playerChoice, computerChoice) {
+            if (playerChoice === computerChoice) return "Empate!";
+            if (
+                (playerChoice === "pedra" && computerChoice === "tesoura") ||
+                (playerChoice === "papel" && computerChoice === "pedra") ||
+                (playerChoice === "tesoura" && computerChoice === "papel")
+            ) return "Você ganhou!";
+            return "Computador ganhou!";
+        }
+
+        function playGame(playerChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(playerChoice, computerChoice);
+            resultDiv.textContent = `Você escolheu ${playerChoice}. Computador escolheu ${computerChoice}. ${result}`;
+        }
+
+        document.getElementById("pedra").onclick = () => playGame("pedra");
+        document.getElementById("papel").onclick = () => playGame("papel");
+        document.getElementById("tesoura").onclick = () => playGame("tesoura");
+    </script>
+</body>
+</html>
+
+
